@@ -12,5 +12,13 @@
     <string name="save">Salvar</string>
     <string name="desc_search_activity">Contatos no dispositivo</string>
     <string name="plus">+</string>
+    <string name="id_nome">ID / Nome</string>
+    <string name="cpf">CPF</string>
+    <string name="email">E-mail</string>
+    <string name="sex">Sexo</string>
+    <string name="opt_masculino">Masculino</string>
+    <string name="opt_feminino">Feminino</string>
+    <string name="phone_mobile">Telefone celular</string>
+    <string name="phone_home">Telefone fixo</string>
 
 </resources>

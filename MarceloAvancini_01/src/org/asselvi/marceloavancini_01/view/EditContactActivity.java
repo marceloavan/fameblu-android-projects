@@ -1,6 +1,7 @@
 package org.asselvi.marceloavancini_01.view;
 
 import org.asselvi.marceloavancini_01.R;
+import org.asselvi.marceloavancini_01.component.IdGenerator;
 import org.asselvi.marceloavancini_01.model.Contact;
 
 import android.app.Activity;
@@ -24,8 +25,7 @@ public class EditContactActivity extends Activity {
 	private RadioButton sexRadioFeminino;
 	
 	private Contact contactEdited;
-
-	public static int lastId = 100; 
+	private String defaultId = "- - - - - -";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +49,12 @@ public class EditContactActivity extends Activity {
 		int requestCode = getIntent().getIntExtra("requestCode", MainActivity.REQUEST_NEW_CONTACT);
 		if (requestCode == MainActivity.REQUEST_NEW_CONTACT) {
 			contactEdited = new Contact();
-			contactEdited.setId(lastId++);
+			contactEdited.setId(IdGenerator.nextId());
+			idEdit.setText(defaultId);
 		} else if (requestCode == MainActivity.REQUEST_EDIT_CONTACT) {
 			contactEdited = (Contact) getIntent().getSerializableExtra("contactToEdit");
 			
-			idEdit.setText(contactEdited.getIdDevice() == 0 ? "- - - - - -" : contactEdited.getIdDevice().toString());
+			idEdit.setText(contactEdited.getIdDevice() == 0 ? defaultId : contactEdited.getIdDevice().toString());
 			nameEdit.setText(contactEdited.getName());
 			documentEdit.setText(contactEdited.getDocument());
 			emailEdit.setText(contactEdited.getEmail());

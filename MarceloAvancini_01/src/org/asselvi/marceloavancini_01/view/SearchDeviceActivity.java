@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.asselvi.marceloavancini_01.R;
 import org.asselvi.marceloavancini_01.component.ContactAdapter;
+import org.asselvi.marceloavancini_01.component.IdGenerator;
 import org.asselvi.marceloavancini_01.model.Contact;
 import org.asselvi.marceloavancini_01.service.DeviceIntegration;
 import org.asselvi.marceloavancini_01.service.api.DeviceIntegrationAPI;
@@ -67,7 +68,7 @@ public class SearchDeviceActivity extends Activity {
 		Intent intent = new Intent();
 		setResult(MainActivity.RESULT_OK, intent);
 		
-		selectedContact.setId(EditContactActivity.lastId++);
+		selectedContact.setId(IdGenerator.nextId());
 		intent.putExtra("contact", selectedContact);
 		selectedContactIds.add(selectedContact.getIdDevice());
 		finish();

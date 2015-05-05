@@ -15,7 +15,7 @@
             android:id="@+id/nameLb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome" />
+            android:text="@string/id_nome" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:id="@+id/documentLb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CPF" />
+            android:text="@string/cpf" />
 
         <EditText
             android:id="@+id/documentEdt"
@@ -75,7 +75,7 @@
             android:id="@+id/emailLb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="E-mail" />
+            android:text="@string/email" />
 
         <EditText
             android:id="@+id/emailEdt"
@@ -96,7 +96,7 @@
             android:id="@+id/sexoLb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sexo" />
+            android:text="@string/sex" />
 
         <RadioGroup
             android:id="@+id/sexoRdBtn"
@@ -109,14 +109,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Masculino" />
+                android:text="@string/opt_masculino" />
 
             <RadioButton
                 android:id="@+id/femininoRdBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Feminino" />
+                android:text="@string/opt_feminino" />
         </RadioGroup>
     </LinearLayout>
 
@@ -135,7 +135,7 @@
                 android:id="@+id/phoneHomeLb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telefone fixo" />
+                android:text="@string/phone_home" />
 
             <EditText
                 android:id="@+id/phoneHomeEdt"
@@ -156,7 +156,7 @@
                 android:id="@+id/phoneMobileLb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telefone celular" />
+                android:text="@string/phone_mobile" />
 
             <EditText
                 android:id="@+id/phoneMobileEdt"
@@ -180,7 +180,7 @@
            android:layout_height="wrap_content"
            android:layout_weight="1"
            android:onClick="cancel"
-           android:text="Cancelar" />
+           android:text="@string/cancel" />
 
        <Button
            android:id="@+id/saveBrn"
