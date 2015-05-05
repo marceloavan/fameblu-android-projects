@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MarceloAvancini_01</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_search">Pesquisar</string>
+    <string name="menu_close">Sair</string>
+    <string name="title_activity_search_device_view">SearchDeviceView</string>
+    <string name="title_activity_edit_contact">EditContactActivity</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="save">Salvar</string>
+    <string name="desc_search_activity">Contatos no dispositivo</string>
+    <string name="plus">+</string>
+
+</resources>
