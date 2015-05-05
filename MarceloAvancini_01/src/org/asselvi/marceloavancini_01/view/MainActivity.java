@@ -84,18 +84,16 @@ public class MainActivity extends Activity {
 		case R.id.menu_bt_search:
 			toast = Toast.makeText(getApplicationContext(), "Pesquisando contatos...", Toast.LENGTH_SHORT);
 			Intent intent = new Intent(getApplicationContext(), SearchDeviceActivity.class);
+			toast.show();
 			startActivityForResult(intent, REQUEST_SEARCH);
 			break;
 			
 		case R.id.menu_bt_close:
 			askToClose();
 			toast = Toast.makeText(getApplicationContext(), "Saindo...", Toast.LENGTH_SHORT);
-			break;
-			
-		default:
+			toast.show();
 			break;
 		}
-		toast.show();
 		return true;
 	}
 	
