@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 
-import com.example.appanotacoes.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +27,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.appanotacoes.R;
+
 public class MainActivity extends Activity {
 	private String path;
 	private File folder;
@@ -39,6 +40,8 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(this.getClass().getSimpleName(), "->onCreate");
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		activity = this;
@@ -50,6 +53,8 @@ public class MainActivity extends Activity {
 	}
 	
 	private void init() {
+		Log.d(this.getClass().getSimpleName(), "->init");
+		
 		path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/INF28_2015_1/" ;
 		folder = new File(path);
 		folder.mkdirs();
@@ -58,14 +63,17 @@ public class MainActivity extends Activity {
 	}
 	
 	protected void editFile(String str){
+		Log.d(this.getClass().getSimpleName(), "->editFile()");
+		
 		Intent it = new Intent(getApplicationContext(), EditFile.class);
 		it.putExtra("pathFile", str);
 		startActivityForResult(it, 2);
 	}
 	
 	protected void readList() {
-		arrFiles.removeAll(arrFiles);
+		Log.d(this.getClass().getSimpleName(), "->readList()");
 		
+		arrFiles.removeAll(arrFiles);
 		arrFiles.add("* * * Novo Arquivo * * *");
 		
 		File folder = new File(path);
@@ -105,6 +113,7 @@ public class MainActivity extends Activity {
 					btnSim.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
+							Log.d(activity.getClass().getSimpleName(), "->onClick->editar");
 							editFile(edit.getText().toString());
 							dialog.dismiss();
 						}
@@ -113,6 +122,7 @@ public class MainActivity extends Activity {
 					btnNao.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
+							Log.d(activity.getClass().getSimpleName(), "->onClick->naoEditar");
 							dialog.dismiss();
 						}
 					});
@@ -136,6 +146,7 @@ public class MainActivity extends Activity {
 						.setPositiveButton("Sim", new AlertDialog.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
+								Log.d(activity.getClass().getSimpleName(), "->onLongClick->remover");
 								File fileExt = new File(path, fileList[position-1].getName());
 								fileExt.delete();
 								fileList[position-1]=null;
@@ -155,6 +166,8 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(this.getClass().getSimpleName(), "->onOptionsItemSelected");
+		
 		switch (item.getItemId()) {
 		case R.id.menu_main_sair:
 			finish();
@@ -164,6 +177,8 @@ public class MainActivity extends Activity {
 	}
 	
 	private void loadSavedSharedPreferences() {
+		Log.d(this.getClass().getSimpleName(), "->loadSavedSharedPreferences()");
+		
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		String fileName = sharedPreferences.getString("fileName", "");
 		SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -179,6 +194,8 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d(this.getClass().getSimpleName(), "->onActivityResult");
+		
 		if (resultCode == 10) {
 			finish();
 		}
@@ -187,6 +204,8 @@ public class MainActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d(this.getClass().getSimpleName(), "->onCreateOptionsMenu");
+		
 		getMenuInflater().inflate(R.menu.menu_close, menu);
 		return true;
 	}

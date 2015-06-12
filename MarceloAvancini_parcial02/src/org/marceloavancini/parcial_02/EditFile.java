@@ -6,21 +6,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.example.appanotacoes.R;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.appanotacoes.R;
 
 public class EditFile extends Activity {
 	private String path;
@@ -29,9 +32,14 @@ public class EditFile extends Activity {
 	private Button returnBtn;
 	private Button saveBtn;
 	private Button removeBtn;
+	private Activity activity;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(this.getClass().getSimpleName(), "->onCreate");
+		
+		activity = this;
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_file);
 		
@@ -57,6 +65,7 @@ public class EditFile extends Activity {
 		returnBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				Log.d(activity.getClass().getSimpleName(), "->returnBtn->onClick");
 				finish();
 			}
 		});
@@ -65,6 +74,7 @@ public class EditFile extends Activity {
 		saveBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.d(activity.getClass().getSimpleName(), "->saveBtn->onClick");
 				saveFile();
 			}
 		});
@@ -73,14 +83,28 @@ public class EditFile extends Activity {
 		removeBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				File fileExt = new File(path, fileName);
-				fileExt.delete();
-				finish();
+				Log.d(activity.getClass().getSimpleName(), "->removeBtn->onClick");
+				new AlertDialog
+					.Builder(activity)
+					.setTitle("Remover arquivo")
+					.setMessage("\n\nDeseja realmente remover o arquivo?\n\n")
+					.setPositiveButton("Sim", new AlertDialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							File fileExt = new File(path, fileName);
+							fileExt.delete();
+							finish();
+						}
+					})
+					.setNegativeButton("Não", null)
+					.show();
 			}
 		});
 	}
 	
 	private void saveFile() {
+		Log.d(this.getClass().getSimpleName(), "->saveFile");
+		
 		fileName = normalizeStr(fileName);
 	    
 		File fileExt = new File(path, fileName);
@@ -105,6 +129,8 @@ public class EditFile extends Activity {
 	}
 	
 	private void readFile(String str)  {
+		Log.d(this.getClass().getSimpleName(), "->readFile");
+		
 		fileName = normalizeStr(fileName);
     	File file = new File(path, str); 
 		FileInputStream fis = null;
@@ -132,6 +158,8 @@ public class EditFile extends Activity {
 	}
 	
 	private void saveSharedPreferences() {
+		Log.d(this.getClass().getSimpleName(), "->saveSharedPreferences");
+		
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		Editor editor = sharedPreferences.edit();
         editor.putString("fileName", fileName);
@@ -140,6 +168,8 @@ public class EditFile extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d(this.getClass().getSimpleName(), "->onOptionsItemSelected");
+		
 		switch (item.getItemId()) {
 		case R.id.menu_main_sair:
 			saveSharedPreferences();
@@ -151,12 +181,16 @@ public class EditFile extends Activity {
 	}
 	
 	private String normalizeStr(String str) {
+		Log.d(this.getClass().getSimpleName(), "->normalizeStr");
+		
 		str = str.replaceAll(".txt", "");
 		return str + ".txt";
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.d(this.getClass().getSimpleName(), "->onCreateOptionsMenu");
+		
 		getMenuInflater().inflate(R.menu.menu_close, menu);
 		return true;
 	}
