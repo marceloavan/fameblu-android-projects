@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:id="@+id/infoEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/nameLb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nome" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            
+            <EditText
+                android:id="@+id/nameEdt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:ems="10"
+                android:hint="Digite o nome"
+                android:inputType="textPersonName"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/phoneHomeLb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone" />
+
+        <EditText
+            android:id="@+id/phoneHomeEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Digite o telefone"
+            android:inputType="phone" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/emailLb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/emailEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Digite o E-mail"
+            android:inputType="textEmailAddress|textPersonName" />
+    </LinearLayout>
+    
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="5dp">
+
+       <Button
+           android:id="@+id/cancelBtn"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:onClick="cancel"
+           android:text="@string/cancel" />
+
+       <Button
+           android:id="@+id/saveBrn"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:onClick="save"
+           android:text="@string/save" />
+   	</LinearLayout>
+
+</LinearLayout>

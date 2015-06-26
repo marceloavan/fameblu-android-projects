@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">AvaliacaoFinal_02</string>
+    <string name="app_name">MarceloAvancini_01</string>
     <string name="hello_world">Hello world!</string>
+    <string name="menu_search">Pesquisar</string>
+    <string name="menu_close">Sair</string>
+    <string name="title_activity_edit_user">EditContactActivity</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="save">Salvar</string>
+    <string name="plus">+</string>
+    <string name="id_nome">ID / Nome</string>
+    <string name="email">E-mail</string>
+    <string name="phone">Telefone</string>
+    <string name="nome">Nome</string>
+    <string name="menu_new_user">Novo Usuário</string>
 
 </resources>
