@@ -2,9 +2,9 @@ package org.asselvi.avaliacaofinal02.view;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.asselvi.avaliacaofinal02.R;
+import org.asselvi.avaliacaofinal02.dao.UserDAO;
 import org.asselvi.avaliacaofinal02.model.User;
 
 import android.app.Activity;
@@ -69,7 +69,11 @@ public class EditUserActivity extends Activity {
 		strPhoneHome = strPhoneHome.length() == 0 ? "0" : strPhoneHome;
 		userEdited.setPhone(Integer.valueOf(strPhoneHome));
 		
-		userEdited.setLastUpdate(new Date());
+		if (userEdited.getId() == null) {
+			UserDAO.getInstance().insert(getApplicationContext(), userEdited);
+		} else {
+			UserDAO.getInstance().update(getApplicationContext(), userEdited);
+		}
 		
 		intent.putExtra("user", userEdited);
 		finish();

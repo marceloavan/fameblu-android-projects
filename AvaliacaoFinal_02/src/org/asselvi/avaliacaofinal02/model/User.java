@@ -14,7 +14,7 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	private String name;
 	private Integer phone;
 	private String email;
@@ -31,7 +31,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
-	public Integer getId() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Long getId() {
 		return id;
 	}
 

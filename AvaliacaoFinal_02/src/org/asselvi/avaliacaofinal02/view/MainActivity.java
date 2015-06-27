@@ -2,6 +2,7 @@ package org.asselvi.avaliacaofinal02.view;
 
 import org.asselvi.avaliacaofinal02.R;
 import org.asselvi.avaliacaofinal02.component.UserAdapter;
+import org.asselvi.avaliacaofinal02.dao.UserDAO;
 import org.asselvi.avaliacaofinal02.model.User;
 
 import android.app.Activity;
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
 		listView = (ListView) findViewById(R.id.listViewUserMain);
 		infoTextView = (TextView) findViewById(R.id.infoMain);
 
-		userAdapter = new UserAdapter(getApplicationContext());
+		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
 		
 		listView.setAdapter(userAdapter);
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -125,6 +126,7 @@ public class MainActivity extends Activity {
 		builderClose.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				UserDAO.getInstance().remove(getApplicationContext(), user);
 				userAdapter.removeItem(user);
 				listView.invalidateViews();
 				loadInfo();
