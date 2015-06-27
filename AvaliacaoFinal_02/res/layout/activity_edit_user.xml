@@ -42,7 +42,7 @@
                 android:ems="10"
                 android:hint="Digite o nome"
                 android:inputType="textPersonName"/>
-
+			<requestFocus />
         </LinearLayout>
 
     </LinearLayout>
@@ -66,8 +66,7 @@
             android:ems="10"
             android:hint="Digite o telefone"
             android:inputType="phone" >
-
-            <requestFocus />
+    
         </EditText>
     </LinearLayout>
 
@@ -88,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Digite o E-mail"
+            android:hint="Digite o e-mail"
             android:inputType="textEmailAddress|textPersonName" />
     </LinearLayout>
     

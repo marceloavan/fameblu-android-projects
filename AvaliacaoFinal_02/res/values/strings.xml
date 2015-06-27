@@ -14,6 +14,6 @@
     <string name="email">E-mail</string>
     <string name="phone">Telefone</string>
     <string name="nome">Nome</string>
-    <string name="menu_new_user">Novo Usuário</string>
+    <string name="menu_new_user">Novo usuário</string>
 
 </resources>

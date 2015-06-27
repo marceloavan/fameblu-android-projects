@@ -52,7 +52,13 @@ public class EditUserActivity extends Activity {
 	}
 	
 	private void loadInfo() {
-		infoTextView.setText(String.format("Última atualização: %s.", dateFormatter.format(userEdited.getLastUpdate())));
+		String info;
+		if (userEdited.getId() != null && userEdited.getLastUpdate() != null) {
+			info = String.format("Última atualização: %s.", dateFormatter.format(userEdited.getLastUpdate()));
+		} else {
+			info = "Você está cadastrando um novo usuário";
+		}
+		infoTextView.setText(info);
 	}
 	
 	public void save(View v) {

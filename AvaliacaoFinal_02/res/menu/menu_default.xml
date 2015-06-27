@@ -4,8 +4,7 @@
             android:id="@+id/menu_bt_new_user" 
             android:title="@string/menu_new_user" 
             android:menuCategory="container"
-            android:showAsAction="never"
-            android:icon="@android:drawable/ic_search_category_default">
+            android:showAsAction="never">
         </item>
         
         <item 
