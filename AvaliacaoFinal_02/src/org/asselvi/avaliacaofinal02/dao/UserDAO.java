@@ -21,6 +21,8 @@ public class UserDAO extends BaseDAO<User> {
 		}
 		return INSTANCE;
 	}
+	
+	private UserDAO() {}
 
 	@Override
 	public List<User> findAll(Context context) {

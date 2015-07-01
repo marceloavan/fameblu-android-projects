@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 
 import org.asselvi.avaliacaofinal02.R;
 import org.asselvi.avaliacaofinal02.dao.UserDAO;
+import org.asselvi.avaliacaofinal02.logging.Level;
+import org.asselvi.avaliacaofinal02.logging.LogProducer;
 import org.asselvi.avaliacaofinal02.model.User;
 
 import android.app.Activity;
@@ -25,13 +27,16 @@ public class EditUserActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		LogProducer.log(getClass(), Level.INFO, "Executando o onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_user);
 		init();
 	}
 	
 	private void init() {
-		dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		LogProducer.log(getClass(), Level.INFO, "Iniciando informações do objeto");
+		
+		dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		nameEdit = (TextView) findViewById(R.id.nameEdt);
 		emailEdit = (TextView) findViewById(R.id.emailEdt);
@@ -52,6 +57,8 @@ public class EditUserActivity extends Activity {
 	}
 	
 	private void loadInfo() {
+		LogProducer.log(getClass(), Level.INFO, "Carregando última atualização do usuário");
+		
 		String info;
 		if (userEdited.getId() != null && userEdited.getLastUpdate() != null) {
 			info = String.format("Última atualização: %s.", dateFormatter.format(userEdited.getLastUpdate()));
@@ -62,6 +69,8 @@ public class EditUserActivity extends Activity {
 	}
 	
 	public void save(View v) {
+		LogProducer.log(getClass(), Level.INFO, "O botão salvar usuário foi pressionado");
+		
 		Intent intent = new Intent();
 		setResult(MainActivity.RESULT_OK, intent);
 		
@@ -76,8 +85,10 @@ public class EditUserActivity extends Activity {
 		userEdited.setPhone(Integer.valueOf(strPhoneHome));
 		
 		if (userEdited.getId() == null) {
+			LogProducer.log(getClass(), Level.INFO, "Criando novo usuário com id: "+ userEdited.getId());
 			UserDAO.getInstance().insert(getApplicationContext(), userEdited);
 		} else {
+			LogProducer.log(getClass(), Level.INFO, "Editando o usuário com id: "+ userEdited.getId());
 			UserDAO.getInstance().update(getApplicationContext(), userEdited);
 		}
 		
@@ -86,6 +97,8 @@ public class EditUserActivity extends Activity {
 	}
 	
 	public void cancel(View v) {
+		LogProducer.log(getClass(), Level.INFO, "O botão cancelar foi pressionado");
+		
 		Intent intent = new Intent();
 		setResult(MainActivity.RESULT_NOK, intent);
 		finish();

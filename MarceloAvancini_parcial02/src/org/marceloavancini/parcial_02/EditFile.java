@@ -43,7 +43,7 @@ public class EditFile extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_file);
 		
-		path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/INF28_2015_1/";
+		path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/OFICIAL_02_LOGGING/";
 		
 		Intent intent = getIntent();
 		fileName = intent.getStringExtra("pathFile");
