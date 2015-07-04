@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 	
 	public static int RESULT_OK = 100;
 	public static int RESULT_NOK = 101;
+	public static int RESULT_REMOVED = 102;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -167,16 +168,21 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		LogProducer.log(getClass(), Level.WARN, "Executando o onActivityResult");
 		
-		User user = (User) data.getSerializableExtra("user");
-		if (user != null) {
-			if (requestCode == REQUEST_NEW_USER || requestCode == REQUEST_NEW_USER) {
-				userAdapter.addItem(user);
-			} else if (requestCode == REQUEST_EDIT_USER) {
-				userAdapter.addOrReplaceItem(user);
+		if (resultCode == RESULT_OK) {
+			User user = (User) data.getSerializableExtra("user");
+			if (user != null) {
+				if (requestCode == REQUEST_NEW_USER || requestCode == REQUEST_NEW_USER) {
+					userAdapter.addItem(user);
+				} else if (requestCode == REQUEST_EDIT_USER) {
+					userAdapter.addOrReplaceItem(user);
+				}
 			}
-			listView.invalidateViews();
-			loadInfo();
 		}
+		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
+		listView.setAdapter(userAdapter);
+		
+		listView.invalidateViews();
+		loadInfo();
 	}
 	
 	public void newUser(View v) {

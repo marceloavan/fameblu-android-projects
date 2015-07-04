@@ -1,0 +1,10 @@
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item 
+            android:id="@+id/menu_bt_remove_user" 
+            android:title="@string/remove" 
+            android:menuCategory="container"
+            android:showAsAction="never">
+        </item>
+        
+    </menu>
