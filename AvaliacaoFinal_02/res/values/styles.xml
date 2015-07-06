@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -28,6 +28,7 @@
       <item name="android:gravity" >center</item>
       <item name="android:layout_margin" >3dp</item>
       <item name="android:textSize" >5pt</item>
+      <item name="android:background" >@drawable/selector_button</item>
    </style>
-
+   
 </resources>
