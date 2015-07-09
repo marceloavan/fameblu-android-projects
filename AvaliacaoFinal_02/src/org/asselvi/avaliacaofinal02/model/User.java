@@ -19,16 +19,18 @@ public class User implements Serializable {
 	private Integer phone;
 	private String email;
 	private Date lastUpdate;
+	private Role role;
 	
 	public User() {
 		super();
 	}
 
-	public User(String name, Integer phone, String email) {
+	public User(String name, Integer phone, String email, Role role) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
+		this.role = role;
 	}
 	
 	public void setId(Long id) {
@@ -69,6 +71,14 @@ public class User implements Serializable {
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	@Override

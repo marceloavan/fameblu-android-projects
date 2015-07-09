@@ -11,10 +11,15 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class Database extends SQLiteOpenHelper {
 
-	private static final int CURRENT_VERSION = 100;
+	private static final int CURRENT_VERSION = 200;
 	private static final String DATABASE = "users_database";
 	
+	// v100
 	private static final String CREATE_SQL = "CREATE TABLE USERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, EMAIL TEXT, PHONE INTEGER, LASTUPDATE INTEGER)";
+	
+	// v200
+	private static final String UPDATE_200_1 = "CREATE TABLE ROLES (ID INTEGER PRIMARY KEY AUTOINCREMENT, DESC TEXT)";
+	private static final String UPDATE_200_2 = "ALTER TABLE USERS ADD COLUMN ID_ROLE INTEGER";
 	
 	public static Database getInstance(Context context) {
 		return new Database(context, DATABASE, null, CURRENT_VERSION);
@@ -32,5 +37,9 @@ public class Database extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		if (newVersion >= 200 && oldVersion < 200) {
+			db.execSQL(UPDATE_200_1);
+			db.execSQL(UPDATE_200_2);
+		}
 	}
 }

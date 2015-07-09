@@ -36,6 +36,10 @@ public class UserDAO extends BaseDAO<User> {
 			user.setName(cursor.getString(cursor.getColumnIndex("NAME")));
 			user.setEmail(cursor.getString(cursor.getColumnIndex("EMAIL")));
 			user.setPhone(cursor.getInt(cursor.getColumnIndex("PHONE")));
+			int idRole = cursor.getInt(cursor.getColumnIndex("ID_ROLE"));
+			if (idRole > 0) {
+				user.setRole(RoleDAO.getInstance().findOne(context, idRole));
+			}
 			
 			Date lastUpdate = new Date(cursor.getLong(cursor.getColumnIndex("LASTUPDATE")));
 			user.setLastUpdate(lastUpdate);
@@ -45,8 +49,13 @@ public class UserDAO extends BaseDAO<User> {
 		return list;
 	}
 
+	/**
+	 * {@link Deprecated} ainda não implementado para usuarios
+	 */
 	@Override
+	@Deprecated
 	public User findOne(Context context, Integer id) {
+		// TODO
 		return null;
 	}
 
@@ -60,6 +69,7 @@ public class UserDAO extends BaseDAO<User> {
 		content.put("EMAIL", item.getEmail());
 		content.put("PHONE", item.getPhone());
 		content.put("LASTUPDATE", item.getLastUpdate().getTime());
+		content.put("ID_ROLE", item.getRole().getId());
 		long id = db.insert(getTableName(), null, content);
 		if (id != -1) {
 			item.setId(id);
@@ -81,6 +91,7 @@ public class UserDAO extends BaseDAO<User> {
 		content.put("EMAIL", item.getEmail());
 		content.put("PHONE", item.getPhone());
 		content.put("LASTUPDATE", item.getLastUpdate().getTime());
+		content.put("ID_ROLE", item.getRole().getId());
 
 		long id = db.update(getTableName(), content, whereClause, whereArgs);
 		
