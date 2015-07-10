@@ -2,8 +2,11 @@ package org.asselvi.avaliacaofinal02.view;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.asselvi.avaliacaofinal02.R;
+import org.asselvi.avaliacaofinal02.dao.RoleDAO;
 import org.asselvi.avaliacaofinal02.dao.UserDAO;
 import org.asselvi.avaliacaofinal02.logging.Level;
 import org.asselvi.avaliacaofinal02.logging.LogProducer;
@@ -17,6 +20,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ public class EditUserActivity extends Activity {
 	private TextView phoneEdit;
 	private TextView infoTextView;
 	private DateFormat dateFormatter;
+	private Spinner roleSpinner;
 	private Activity activity;
 	
 	private User userEdited;
@@ -50,6 +56,7 @@ public class EditUserActivity extends Activity {
 		emailEdit = (TextView) findViewById(R.id.emailEdt);
 		phoneEdit = (TextView) findViewById(R.id.phoneHomeEdt);
 		infoTextView = (TextView) findViewById(R.id.infoEdit);
+		roleSpinner = (Spinner) findViewById(R.id.roleSpn);
 		
 		int requestCode = getIntent().getIntExtra("requestCode", MainActivity.REQUEST_NEW_USER);
 		if (requestCode == MainActivity.REQUEST_NEW_USER) {
@@ -62,6 +69,7 @@ public class EditUserActivity extends Activity {
 			phoneEdit.setText(userEdited.getPhone().toString());
 		}
 		loadInfo();
+		spinnerAdd();
 	}
 	
 	private void loadInfo() {
@@ -168,5 +176,14 @@ public class EditUserActivity extends Activity {
 		
 		setResult(MainActivity.RESULT_NOK, new Intent());
 		finish();
+	}
+	
+	public void spinnerAdd() {
+		List<RoleDAO> roleList = new ArrayList<RoleDAO>();
+		ArrayAdapter<RoleDAO> adapter = new ArrayAdapter<RoleDAO>(this, android.R.layout.simple_spinner_dropdown_item, roleList);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		roleSpinner.setAdapter(adapter);
+		
 	}
 }

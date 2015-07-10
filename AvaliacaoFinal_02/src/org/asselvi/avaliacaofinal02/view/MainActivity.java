@@ -1,7 +1,11 @@
 package org.asselvi.avaliacaofinal02.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.asselvi.avaliacaofinal02.R;
 import org.asselvi.avaliacaofinal02.component.UserAdapter;
+import org.asselvi.avaliacaofinal02.dao.RoleDAO;
 import org.asselvi.avaliacaofinal02.dao.UserDAO;
 import org.asselvi.avaliacaofinal02.logging.Level;
 import org.asselvi.avaliacaofinal02.logging.LogProducer;
@@ -18,7 +22,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,9 +55,9 @@ public class MainActivity extends Activity {
 		LogProducer.log(getClass(), Level.INFO, "Iniciando informações do objeto");
 		
 		activity = this;
-		
 		listView = (ListView) findViewById(R.id.listViewUserMain);
 		infoTextView = (TextView) findViewById(R.id.infoMain);
+		
 
 		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
 		
@@ -74,7 +80,10 @@ public class MainActivity extends Activity {
 				startActivityForResult(intent, REQUEST_EDIT_USER);
 			}
 		});
+		
 		loadInfo();
+		
+	
 	}
 
 	private void loadInfo() {
@@ -206,4 +215,5 @@ public class MainActivity extends Activity {
 		
 		askToClose();
 	}
+	
 }
