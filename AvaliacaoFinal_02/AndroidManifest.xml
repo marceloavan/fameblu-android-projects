@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="14" />
-    
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -16,16 +16,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.asselvi.avaliacaofinal02.view.MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="org.asselvi.avaliacaofinal02.view.EditUserActivity"
+            android:name=".view.EditUserActivity"
             android:label="@string/title_activity_edit_user" >
+        </activity>
+        <activity
+            android:name="org.asselvi.avaliacaofinal02.view.EditRoleActivity"
+            android:label="@string/title_activity_edit_role" >
         </activity>
     </application>
 

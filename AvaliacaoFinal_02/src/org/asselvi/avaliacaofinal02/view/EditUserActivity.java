@@ -29,7 +29,7 @@ public class EditUserActivity extends Activity {
 	private DateFormat dateFormatter;
 	private Activity activity;
 	
-	private User userEdited;
+	private User userEditing;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +53,13 @@ public class EditUserActivity extends Activity {
 		
 		int requestCode = getIntent().getIntExtra("requestCode", MainActivity.REQUEST_NEW_USER);
 		if (requestCode == MainActivity.REQUEST_NEW_USER) {
-			userEdited = new User();
+			userEditing = new User();
 		} else if (requestCode == MainActivity.REQUEST_EDIT_USER) {
-			userEdited = (User) getIntent().getSerializableExtra("userToEdit");
+			userEditing = (User) getIntent().getSerializableExtra("userToEdit");
 			
-			nameEdit.setText(userEdited.getName());
-			emailEdit.setText(userEdited.getEmail());
-			phoneEdit.setText(userEdited.getPhone().toString());
+			nameEdit.setText(userEditing.getName());
+			emailEdit.setText(userEditing.getEmail());
+			phoneEdit.setText(userEditing.getPhone().toString());
 		}
 		loadInfo();
 	}
@@ -68,8 +68,8 @@ public class EditUserActivity extends Activity {
 		LogProducer.log(getClass(), Level.INFO, "Carregando última atualização do usuário");
 		
 		String info;
-		if (userEdited.getId() != null && userEdited.getLastUpdate() != null) {
-			info = String.format("Última atualização: %s.", dateFormatter.format(userEdited.getLastUpdate()));
+		if (userEditing.getId() != null && userEditing.getLastUpdate() != null) {
+			info = String.format("Última atualização: %s.", dateFormatter.format(userEditing.getLastUpdate()));
 		} else {
 			info = "Você está cadastrando um novo usuário";
 		}
@@ -83,24 +83,24 @@ public class EditUserActivity extends Activity {
 		setResult(MainActivity.RESULT_OK, intent);
 		
 		String strName = String.valueOf(nameEdit.getText() != null ? nameEdit.getText() : "");
-		userEdited.setName(strName);
+		userEditing.setName(strName);
 		
 		String strEmail = String.valueOf(emailEdit.getText() != null ? emailEdit.getText() : "");
-		userEdited.setEmail(strEmail);
+		userEditing.setEmail(strEmail);
 		
 		String strPhoneHome = String.valueOf(phoneEdit.getText() != null ? phoneEdit.getText() : "0");
 		strPhoneHome = strPhoneHome.length() == 0 ? "0" : strPhoneHome;
-		userEdited.setPhone(Integer.valueOf(strPhoneHome));
+		userEditing.setPhone(Integer.valueOf(strPhoneHome));
 		
-		if (userEdited.getId() == null) {
-			LogProducer.log(getClass(), Level.INFO, "Criando novo usuário com id: "+ userEdited.getId());
-			UserDAO.getInstance().insert(getApplicationContext(), userEdited);
+		if (userEditing.getId() == null) {
+			LogProducer.log(getClass(), Level.INFO, "Criando novo usuário com id: "+ userEditing.getId());
+			UserDAO.getInstance().insert(getApplicationContext(), userEditing);
 		} else {
-			LogProducer.log(getClass(), Level.INFO, "Editando o usuário com id: "+ userEdited.getId());
-			UserDAO.getInstance().update(getApplicationContext(), userEdited);
+			LogProducer.log(getClass(), Level.INFO, "Editando o usuário com id: "+ userEditing.getId());
+			UserDAO.getInstance().update(getApplicationContext(), userEditing);
 		}
 		
-		intent.putExtra("user", userEdited);
+		intent.putExtra("user", userEditing);
 		finish();
 	}
 	
@@ -128,28 +128,28 @@ public class EditUserActivity extends Activity {
 	}
 	
 	private void askToRemove() {
-		LogProducer.log(getClass(), Level.WARN, "Pedindo confirmação para excluir o usuário de id: " + userEdited.getId());
+		LogProducer.log(getClass(), Level.WARN, "Pedindo confirmação para excluir o usuário de id: " + userEditing.getId());
 		
-		if (userEdited.getId() == null) {
+		if (userEditing.getId() == null) {
 			Toast.makeText(getApplicationContext(), "Usuário não salvo", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
 		AlertDialog.Builder builderClose = new AlertDialog.Builder(this);
 		builderClose.setTitle("Remoção de usuário");
-		builderClose.setMessage(String.format("Deseja realmente remover o usuário %s?", userEdited.getName()));
+		builderClose.setMessage(String.format("Deseja realmente remover o usuário %s?", userEditing.getName()));
 		builderClose.setNegativeButton("Não", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				LogProducer.log(activity.getClass(), Level.WARN, "Exclusão do usuário cancelada, id: " + userEdited.getId());
+				LogProducer.log(activity.getClass(), Level.WARN, "Exclusão do usuário cancelada, id: " + userEditing.getId());
 			}
 		});
 		builderClose.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				if (userEdited.getId() != null) {
-					LogProducer.log(getClass(), Level.WARN, "Exclusão do usuário confirmada, id: " + userEdited.getId());
-					UserDAO.getInstance().remove(getApplicationContext(), userEdited);
+				if (userEditing.getId() != null) {
+					LogProducer.log(getClass(), Level.WARN, "Exclusão do usuário confirmada, id: " + userEditing.getId());
+					UserDAO.getInstance().remove(getApplicationContext(), userEditing);
 					setResult(MainActivity.RESULT_REMOVED, new Intent());
 
 					finish();
@@ -168,5 +168,10 @@ public class EditUserActivity extends Activity {
 		
 		setResult(MainActivity.RESULT_NOK, new Intent());
 		finish();
+	}
+	
+	public void roles(View v) {
+		Intent intent = new Intent(getApplicationContext(), EditRoleActivity.class);
+		startActivityForResult(intent, 111);
 	}
 }

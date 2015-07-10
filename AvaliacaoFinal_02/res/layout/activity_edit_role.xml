@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1" >
+		
+        <EditText
+	        android:id="@+id/roleDescEdt"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="4"
+	        android:ems="10"
+	        android:hint="Digite a descrição"
+	        android:inputType="textPersonName"/>
+        
+        <Button
+            android:id="@+id/cancelBtnRoleEdit"
+            style="@style/customButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|fill_vertical"
+            android:layout_weight="2"
+            android:onClick="cancel"
+            android:text="@string/cancel" />
+        	
+        <Button
+            android:id="@+id/saveBtnRoleEdit"
+            style="@style/customButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|fill_vertical"
+            android:layout_weight="2"
+            android:onClick="save"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewRole"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="9" >
+    </ListView>    
+    
+</LinearLayout>

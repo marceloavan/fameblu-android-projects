@@ -20,9 +20,8 @@ public class Role implements Serializable{
 		super();
 	}
 
-	public Role(Long id, String description) {
+	public Role(String description) {
 		super();
-		this.id = id;
 		this.description = description;
 	}
 

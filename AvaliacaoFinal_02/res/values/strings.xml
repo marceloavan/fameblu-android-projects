@@ -16,5 +16,6 @@
     <string name="nome">Nome</string>
     <string name="menu_new_user">Novo usuário</string>
     <string name="remove">Excluir</string>
+    <string name="title_activity_edit_role">EditRoleActivity</string>
 
 </resources>

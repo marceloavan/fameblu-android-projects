@@ -79,7 +79,7 @@ public class RoleDAO extends BaseDAO<Role>{
 		String whereClause = "ID = ?"; 
 		String[] whereArgs = new String[]{item.getId().toString()};
 		
-		content.put("NAME", item.getDescription());
+		content.put("DESC", item.getDescription());
 
 		long id = db.update(getTableName(), content, whereClause, whereArgs);
 		
