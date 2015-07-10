@@ -7,6 +7,7 @@ import org.asselvi.avaliacaofinal02.model.User;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,15 @@ import android.widget.TextView;
 @SuppressLint("ViewHolder")
 public class UserAdapter extends GenericListAdapter<User> {
 
+	private int lastUserSelectedId;
+	
 	public UserAdapter(Context context) {
 		super(context);
 	}
 	
-	public UserAdapter(Context context, List<User> list) {
+	public UserAdapter(Context context, List<User> list, int lastUserSelectedId) {
 		super(context, list);
+		this.lastUserSelectedId = lastUserSelectedId;
 	}
 
 	@Override
@@ -34,6 +38,10 @@ public class UserAdapter extends GenericListAdapter<User> {
 		User user = getItem(position);
 		principal.setText(String.format("%s", user.getName()).trim());
 		secondary.setText(String.format("%s - %s", user.getEmail(), user.getPhone()));
+		
+		if (user.getId().intValue() == lastUserSelectedId) {
+			lineAdapted.setBackgroundColor(Color.GREEN);
+		}
 		return lineAdapted;
 	}
 }

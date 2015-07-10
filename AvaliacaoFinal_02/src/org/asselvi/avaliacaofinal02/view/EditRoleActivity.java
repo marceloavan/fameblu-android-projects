@@ -10,13 +10,14 @@ import org.asselvi.avaliacaofinal02.model.Role;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class EditRoleActivity extends Activity {
 
@@ -25,12 +26,15 @@ public class EditRoleActivity extends Activity {
 	private Activity activity;
 	private TextView roleDescEdit;
 	private Role roleEditing;
+	private View viewSelectedBefore;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_role);
 		setTitle("Edição de cargos");
+		
+		
 		
 		init();
 	}
@@ -39,6 +43,7 @@ public class EditRoleActivity extends Activity {
 		LogProducer.log(getClass(), Level.INFO, "Iniciando informações do objeto");
 		
 		activity = this;
+		viewSelectedBefore = null;
 		
 		listView = (ListView) findViewById(R.id.listViewRole);
 		roleDescEdit = (TextView) findViewById(R.id.roleDescEdt);
@@ -58,6 +63,12 @@ public class EditRoleActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				LogProducer.log(activity.getClass(), Level.INFO, "Executando o onItemClick da listView");
+				
+				if (viewSelectedBefore != null) {
+					viewSelectedBefore.setBackgroundColor(Color.TRANSPARENT);
+				}
+				viewSelectedBefore = view;
+				viewSelectedBefore.setBackgroundColor(Color.GREEN);
 				
 				roleEditing = roleAdapter.getItem(position);
 				roleDescEdit.setText(roleEditing.getDescription());
@@ -84,6 +95,7 @@ public class EditRoleActivity extends Activity {
 				RoleDAO.getInstance().remove(getApplicationContext(), role);
 				roleAdapter.removeItem(role);
 				listView.invalidateViews();
+				roleDescEdit.setText("");
 			}
 		});
 		AlertDialog alert = builderClose.create();
@@ -104,6 +116,9 @@ public class EditRoleActivity extends Activity {
 		}
 		roleDescEdit.setText("");
 		roleEditing = null;
+		if (viewSelectedBefore != null) {
+			viewSelectedBefore.setBackgroundColor(Color.TRANSPARENT);
+		}
 		
 		roleAdapter = new RoleAdapter(getApplicationContext(), RoleDAO.getInstance().findAll(getApplicationContext()));
 		listView.setAdapter(roleAdapter);
@@ -115,6 +130,9 @@ public class EditRoleActivity extends Activity {
 		
 		roleDescEdit.setText("");
 		roleEditing = null;
+		if (viewSelectedBefore != null) {
+			viewSelectedBefore.setBackgroundColor(Color.TRANSPARENT);
+		}
 		
 		roleAdapter = new RoleAdapter(getApplicationContext(), RoleDAO.getInstance().findAll(getApplicationContext()));
 		listView.setAdapter(roleAdapter);

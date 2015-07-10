@@ -17,7 +17,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,6 +73,7 @@ public class EditUserActivity extends Activity {
 		}
 		loadInfo();
 		loadSpinner();
+		saveLastUserSelected();
 	}
 	
 	private void loadInfo() {
@@ -193,6 +197,19 @@ public class EditUserActivity extends Activity {
 		if (userEditing != null && userEditing.getRole() != null) {
 			roleSpinner.setSelection(roleList.indexOf(userEditing.getRole()));
 		}
+	}
+	
+	private void saveLastUserSelected() {
+		LogProducer.log(getClass(), Level.INFO, "Salvando as preferencias");
+		
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Editor editor = sharedPreferences.edit();
+		if (userEditing == null || userEditing.getId() == null) {
+			editor.putInt("lastUserSelected", 0);
+		} else {
+			editor.putInt("lastUserSelected", userEditing.getId().intValue());
+		}
+        editor.commit();
 	}
 	
 	@Override

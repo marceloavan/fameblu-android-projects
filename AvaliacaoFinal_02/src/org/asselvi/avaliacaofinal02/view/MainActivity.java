@@ -11,7 +11,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,8 +55,7 @@ public class MainActivity extends Activity {
 		listView = (ListView) findViewById(R.id.listViewUserMain);
 		infoTextView = (TextView) findViewById(R.id.infoMain);
 		
-
-		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
+		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()), getLastUserSelectedId());
 		
 		listView.setAdapter(userAdapter);
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -77,8 +78,12 @@ public class MainActivity extends Activity {
 		});
 		
 		loadInfo();
-		
+	}
 	
+	private int getLastUserSelectedId() {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		int lastUserSelected = sharedPreferences.getInt("lastUserSelected", 0);
+		return lastUserSelected; 
 	}
 
 	private void loadInfo() {
@@ -182,7 +187,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		}
-		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
+		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()), getLastUserSelectedId());
 		listView.setAdapter(userAdapter);
 		
 		listView.invalidateViews();
