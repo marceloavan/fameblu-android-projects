@@ -31,6 +31,7 @@ public class MainActivity extends Activity {
 	
 	public static int REQUEST_NEW_USER = 1;
 	public static int REQUEST_EDIT_USER = 2;
+	public static int REQUEST_EDIT_ROLE = 3;
 	
 	public static int RESULT_OK = 100;
 	public static int RESULT_NOK = 101;
@@ -49,9 +50,9 @@ public class MainActivity extends Activity {
 		LogProducer.log(getClass(), Level.INFO, "Iniciando informações do objeto");
 		
 		activity = this;
-		
 		listView = (ListView) findViewById(R.id.listViewUserMain);
 		infoTextView = (TextView) findViewById(R.id.infoMain);
+		
 
 		userAdapter = new UserAdapter(getApplicationContext(), UserDAO.getInstance().findAll(getApplicationContext()));
 		
@@ -74,7 +75,10 @@ public class MainActivity extends Activity {
 				startActivityForResult(intent, REQUEST_EDIT_USER);
 			}
 		});
+		
 		loadInfo();
+		
+	
 	}
 
 	private void loadInfo() {
@@ -206,4 +210,5 @@ public class MainActivity extends Activity {
 		
 		askToClose();
 	}
+	
 }

@@ -120,4 +120,9 @@ public class EditRoleActivity extends Activity {
 		listView.setAdapter(roleAdapter);
 		listView.invalidateViews();
 	}
+	
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 }

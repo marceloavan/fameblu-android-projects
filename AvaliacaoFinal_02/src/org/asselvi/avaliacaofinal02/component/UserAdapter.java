@@ -26,10 +26,10 @@ public class UserAdapter extends GenericListAdapter<User> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
-		View lineAdapted = inflater.inflate(R.layout.line_style, parent, false);
+		View lineAdapted = inflater.inflate(R.layout.line_style_user, parent, false);
 
-		TextView principal = (TextView) lineAdapted.findViewById(R.id.principal);
-		TextView secondary = (TextView) lineAdapted.findViewById(R.id.secondary);
+		TextView principal = (TextView) lineAdapted.findViewById(R.id.principalUser);
+		TextView secondary = (TextView) lineAdapted.findViewById(R.id.secondaryUser);
 
 		User user = getItem(position);
 		principal.setText(String.format("%s", user.getName()).trim());

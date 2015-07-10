@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.asselvi.avaliacaofinal02.model.Role;
 import org.asselvi.avaliacaofinal02.model.User;
 
 import android.content.ContentValues;
@@ -38,7 +39,12 @@ public class UserDAO extends BaseDAO<User> {
 			user.setPhone(cursor.getInt(cursor.getColumnIndex("PHONE")));
 			int idRole = cursor.getInt(cursor.getColumnIndex("ID_ROLE"));
 			if (idRole > 0) {
-				user.setRole(RoleDAO.getInstance().findOne(context, idRole));
+				Role role = null;
+				try {
+					role = RoleDAO.getInstance().findOne(context, idRole);
+				} catch (Exception e) {
+				}
+				user.setRole(role);
 			}
 			
 			Date lastUpdate = new Date(cursor.getLong(cursor.getColumnIndex("LASTUPDATE")));
@@ -69,7 +75,9 @@ public class UserDAO extends BaseDAO<User> {
 		content.put("EMAIL", item.getEmail());
 		content.put("PHONE", item.getPhone());
 		content.put("LASTUPDATE", item.getLastUpdate().getTime());
-		content.put("ID_ROLE", item.getRole().getId());
+		if (item.getRole() != null && item.getRole().getId() != null) {
+			content.put("ID_ROLE", item.getRole().getId());
+		}
 		long id = db.insert(getTableName(), null, content);
 		if (id != -1) {
 			item.setId(id);
@@ -91,7 +99,9 @@ public class UserDAO extends BaseDAO<User> {
 		content.put("EMAIL", item.getEmail());
 		content.put("PHONE", item.getPhone());
 		content.put("LASTUPDATE", item.getLastUpdate().getTime());
-		content.put("ID_ROLE", item.getRole().getId());
+		if (item.getRole() != null && item.getRole().getId() != null) {
+			content.put("ID_ROLE", item.getRole().getId());
+		}
 
 		long id = db.update(getTableName(), content, whereClause, whereArgs);
 		

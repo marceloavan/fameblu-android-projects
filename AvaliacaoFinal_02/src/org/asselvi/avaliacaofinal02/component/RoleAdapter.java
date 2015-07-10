@@ -26,14 +26,12 @@ public class RoleAdapter extends GenericListAdapter<Role> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE );
-		View lineAdapted = inflater.inflate(R.layout.line_style, parent, false);
+		View lineAdapted = inflater.inflate(R.layout.line_style_role, parent, false);
 
-		TextView principal = (TextView) lineAdapted.findViewById(R.id.principal);
-		TextView secondary = (TextView) lineAdapted.findViewById(R.id.secondary);
+		TextView principal = (TextView) lineAdapted.findViewById(R.id.principalRole);
 
 		Role role = getItem(position);
 		principal.setText(String.format("%s", role.getDescription()));
-		secondary.setText("");
 		return lineAdapted;
 	}
 

@@ -2,11 +2,15 @@ package org.asselvi.avaliacaofinal02.view;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.asselvi.avaliacaofinal02.R;
+import org.asselvi.avaliacaofinal02.component.RoleAdapter;
+import org.asselvi.avaliacaofinal02.dao.RoleDAO;
 import org.asselvi.avaliacaofinal02.dao.UserDAO;
 import org.asselvi.avaliacaofinal02.logging.Level;
 import org.asselvi.avaliacaofinal02.logging.LogProducer;
+import org.asselvi.avaliacaofinal02.model.Role;
 import org.asselvi.avaliacaofinal02.model.User;
 
 import android.app.Activity;
@@ -17,6 +21,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,7 @@ public class EditUserActivity extends Activity {
 	private TextView phoneEdit;
 	private TextView infoTextView;
 	private DateFormat dateFormatter;
+	private Spinner roleSpinner;
 	private Activity activity;
 	
 	private User userEditing;
@@ -50,6 +56,7 @@ public class EditUserActivity extends Activity {
 		emailEdit = (TextView) findViewById(R.id.emailEdt);
 		phoneEdit = (TextView) findViewById(R.id.phoneHomeEdt);
 		infoTextView = (TextView) findViewById(R.id.infoEdit);
+		roleSpinner = (Spinner) findViewById(R.id.roleSpn);
 		
 		int requestCode = getIntent().getIntExtra("requestCode", MainActivity.REQUEST_NEW_USER);
 		if (requestCode == MainActivity.REQUEST_NEW_USER) {
@@ -62,6 +69,7 @@ public class EditUserActivity extends Activity {
 			phoneEdit.setText(userEditing.getPhone().toString());
 		}
 		loadInfo();
+		loadSpinner();
 	}
 	
 	private void loadInfo() {
@@ -91,6 +99,8 @@ public class EditUserActivity extends Activity {
 		String strPhoneHome = String.valueOf(phoneEdit.getText() != null ? phoneEdit.getText() : "0");
 		strPhoneHome = strPhoneHome.length() == 0 ? "0" : strPhoneHome;
 		userEditing.setPhone(Integer.valueOf(strPhoneHome));
+		
+		userEditing.setRole((Role)roleSpinner.getItemAtPosition(roleSpinner.getSelectedItemPosition()));
 		
 		if (userEditing.getId() == null) {
 			LogProducer.log(getClass(), Level.INFO, "Criando novo usuário com id: "+ userEditing.getId());
@@ -172,6 +182,23 @@ public class EditUserActivity extends Activity {
 	
 	public void roles(View v) {
 		Intent intent = new Intent(getApplicationContext(), EditRoleActivity.class);
-		startActivityForResult(intent, 111);
+		startActivityForResult(intent, MainActivity.REQUEST_EDIT_ROLE);
+	}
+
+	public void loadSpinner() {
+		List<Role> roleList = RoleDAO.getInstance().findAll(getApplicationContext());
+		RoleAdapter adapter = new RoleAdapter(getApplicationContext(), roleList);
+		roleSpinner.setAdapter(adapter);
+		
+		if (userEditing != null && userEditing.getRole() != null) {
+			roleSpinner.setSelection(roleList.indexOf(userEditing.getRole()));
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == MainActivity.REQUEST_EDIT_ROLE) {
+			loadSpinner();
+		}
 	}
 }
